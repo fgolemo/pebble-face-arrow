@@ -84,16 +84,16 @@ static void window_load(Window *window) {
     
     // Create the TextLayer with specific bounds
     s_time_layer_hour = text_layer_create(
-    GRect(52, -5, 95, 60));
+    GRect(52, -10, 95, 60));
     s_time_layer_min = text_layer_create(
-    GRect(52, 50, 95, 60));
+    GRect(52, 45, 95, 60));
     s_time_layer_sec = text_layer_create(
-    GRect(52, 110, 95, 60));
+    GRect(52, 105, 95, 63));
     s_date_layer_dayname = text_layer_create(
-    GRect(6, 59, 40, 25));
+    GRect(6, 54, 40, 25));
 //    GRect(6, 3, 40, 25));
     s_date_layer_daynum = text_layer_create(
-    GRect(6, 82, 40, 25));
+    GRect(6, 78, 42, 25));
 //    GRect(6, 28, 40, 25));
     
     // Improve the layout to be more like a watchface

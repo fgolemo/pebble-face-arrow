@@ -1,0 +1,36 @@
+{
+  "uuid": "b1d2748c-60be-4b7d-99f6-5a873f4b9e62",
+  "shortName": "floface1",
+  "longName": "floface1",
+  "companyName": "MakeAwesomeHappen",
+  "versionLabel": "1.0",
+  "sdkVersion": "3",
+  "targetPlatforms": ["aplite", "basalt", "chalk"],
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": [
+      {
+        "type": "font",
+        "name": "FONT_JOYSTIX_56",
+        "file": "fonts/joystix.ttf",
+        "compatibility":"2.7"
+      },
+      {
+        "type": "font",
+        "name": "FONT_JOYSTIX_24",
+        "file": "fonts/joystix.ttf",
+        "compatibility":"2.7"
+      },
+        {
+          "type": "bitmap",
+          "name": "IMAGE_BACKGROUND",
+          "file": "images/background.png"
+        }
+    ]
+  }
+}

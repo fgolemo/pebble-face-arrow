@@ -10,7 +10,8 @@ static GFont s_time_font;
 static GFont s_date_font;
 static BitmapLayer *s_background_layer;
 static GBitmap *s_background_bitmap;
-
+static int s_battery_level;
+static Layer *s_battery_layer;
 
 static void update_time_hourmin() {
     // Get a tm structure
@@ -66,6 +67,28 @@ static void tick_handler_hourmin(struct tm *tick_time, TimeUnits units_changed) 
 static void tick_handler_sec(struct tm *tick_time, TimeUnits units_changed) {
     update_time_hourmin();
     update_time_sec();
+}
+
+static void battery_callback(BatteryChargeState state) {
+    // Record the new battery level
+    s_battery_level = state.charge_percent;
+    // Update meter
+    layer_mark_dirty(s_battery_layer);
+}
+
+static void battery_update_proc(Layer *layer, GContext *ctx) {
+    GRect bounds = layer_get_bounds(layer);
+
+    // Find the height of the bar
+    int height = (int)(float)(((float)s_battery_level / 100.0F) * 168.0F);
+
+    // Draw the background
+    graphics_context_set_fill_color(ctx, GColorWhite);
+    graphics_fill_rect(ctx, bounds, 0, GCornerNone);
+
+    // Draw the bar
+    graphics_context_set_fill_color(ctx, GColorBlack);
+    graphics_fill_rect(ctx, GRect(0, bounds.size.h-height, bounds.size.w, height), 0, GCornerNone);
 }
 
 static void window_load(Window *window) {
@@ -129,6 +152,14 @@ static void window_load(Window *window) {
     layer_add_child(window_layer, text_layer_get_layer(s_time_layer_sec));
     layer_add_child(window_layer, text_layer_get_layer(s_date_layer_daynum));
     layer_add_child(window_layer, text_layer_get_layer(s_date_layer_dayname));
+
+
+    // Create battery meter Layer
+    s_battery_layer = layer_create(GRect(50, 0, 2, 168));
+    layer_set_update_proc(s_battery_layer, battery_update_proc);
+
+    // Add to Window
+    layer_add_child(window_get_root_layer(window), s_battery_layer);
 }
 
 static void window_unload(Window *window) {
@@ -145,6 +176,9 @@ static void window_unload(Window *window) {
     // Unload GFont
     fonts_unload_custom_font(s_time_font);
     fonts_unload_custom_font(s_date_font);
+    
+    layer_destroy(s_battery_layer);
+
 }
 
 static void init(void) {
@@ -163,6 +197,9 @@ static void init(void) {
     connection_service_subscribe((ConnectionHandlers) {
       .pebble_app_connection_handler = bluetooth_callback
     });
+    battery_state_service_subscribe(battery_callback);
+    // Ensure battery level is displayed from the start
+    battery_callback(battery_state_service_peek());
 }
 
 static void deinit(void) {

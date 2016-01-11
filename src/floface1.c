@@ -64,6 +64,7 @@ static void tick_handler_hourmin(struct tm *tick_time, TimeUnits units_changed) 
     update_time_hourmin();
 }
 static void tick_handler_sec(struct tm *tick_time, TimeUnits units_changed) {
+    update_time_hourmin();
     update_time_sec();
 }
 

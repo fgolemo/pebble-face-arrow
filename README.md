@@ -1,6 +1,8 @@
 Pebble Watchface "Arrow"
 ========================
 
+![pebble watchface "arrow"](https://raw.githubusercontent.com/fgolemo/pebble-face-arrow/master/screen-applite3.png)
+
 Simple digital watchface with pixel art font. If you want some optional features added (for example icon in case the battery goes low), just send me a mail.
 
 Can be found here on the Pebble app store: 
@@ -12,7 +14,6 @@ I know the code is shitty. This is my first Pebble watchface. If you have any su
 
 Cheers,
 Flo
-
 
 
 

@@ -111,7 +111,7 @@ static void window_load(Window *window) {
     s_time_layer_min = text_layer_create(
     GRect(52, 45, 95, 60));
     s_time_layer_sec = text_layer_create(
-    GRect(52, 105, 95, 63));
+    GRect(52, 105, 95, 80));
     s_date_layer_dayname = text_layer_create(
     GRect(6, 54, 40, 25));
 //    GRect(6, 3, 40, 25));

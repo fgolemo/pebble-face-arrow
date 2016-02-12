@@ -31,13 +31,11 @@ static void update_time_hourmin() {
     
     static char s_buffer_daynum[4];
     static char s_buffer_dayname[4];
-    static char s_buffer_dayname_alt[2];
     strftime(s_buffer_dayname, sizeof(s_buffer_dayname), "%a", tick_time);
-    strftime(s_buffer_daynum, sizeof(s_buffer_daynum), "%e", tick_time);
-    s_buffer_dayname_alt[0]=s_buffer_dayname[0];
-    s_buffer_dayname_alt[1]=s_buffer_dayname[1];
+    strftime(s_buffer_daynum, sizeof(s_buffer_daynum), "%d", tick_time);
+    s_buffer_dayname[2]='\0';
 
-    text_layer_set_text(s_date_layer_dayname, s_buffer_dayname_alt);
+    text_layer_set_text(s_date_layer_dayname, s_buffer_dayname);
     text_layer_set_text(s_date_layer_daynum, s_buffer_daynum);
 }
 

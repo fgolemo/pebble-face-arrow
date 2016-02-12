@@ -59,9 +59,6 @@ static void bluetooth_callback(bool connected) {
   }
 }
 
-static void tick_handler_hourmin(struct tm *tick_time, TimeUnits units_changed) {
-    update_time_hourmin();
-}
 static void tick_handler_sec(struct tm *tick_time, TimeUnits units_changed) {
     update_time_hourmin();
     update_time_sec();
@@ -138,9 +135,9 @@ static void window_load(Window *window) {
     text_layer_set_font(s_time_layer_sec, s_time_font);
     text_layer_set_font(s_date_layer_dayname, s_date_font);
     text_layer_set_font(s_date_layer_daynum, s_date_font);
-    text_layer_set_text_alignment(s_time_layer_hour, GTextAlignmentRight);
-    text_layer_set_text_alignment(s_time_layer_min, GTextAlignmentRight);
-    text_layer_set_text_alignment(s_time_layer_sec, GTextAlignmentRight);
+    text_layer_set_text_alignment(s_time_layer_hour, GTextAlignmentLeft);
+    text_layer_set_text_alignment(s_time_layer_min, GTextAlignmentLeft);
+    text_layer_set_text_alignment(s_time_layer_sec, GTextAlignmentLeft);
     text_layer_set_text_alignment(s_date_layer_dayname, GTextAlignmentLeft);
     text_layer_set_text_alignment(s_date_layer_daynum, GTextAlignmentLeft);
     
@@ -190,7 +187,6 @@ static void init(void) {
     update_time_hourmin();
     update_time_sec();
     // Register with TickTimerService
-    //tick_timer_service_subscribe(MINUTE_UNIT, tick_handler_hourmin);
     tick_timer_service_subscribe(SECOND_UNIT, tick_handler_sec);
     connection_service_subscribe((ConnectionHandlers) {
       .pebble_app_connection_handler = bluetooth_callback
